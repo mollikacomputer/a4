@@ -1,0 +1,36 @@
+
+// =====================================================
+// Enums
+// =====================================================
+
+enum UserRole {
+  customer
+  technician
+  admin
+}
+
+enum UserStatus {
+  active
+  banned
+}
+
+enum BookingStatus {
+  pending
+  accepted
+  declined
+  in_progress
+  completed
+  cancelled
+}
+
+enum PaymentMethod {
+  stripe
+  sslcommerz
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  failed
+  refunded
+}

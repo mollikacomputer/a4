@@ -1,0 +1,20 @@
+
+// =====================================================
+// 5. AVAILABILITY_SLOTS
+// =====================================================
+
+model AvailabilitySlot {
+  id           Int      @id @default(autoincrement())
+  technicianId Int      @map("technician_id")
+  slotDate     DateTime @map("slot_date") @db.Date
+  startTime    DateTime @map("start_time") @db.Time
+  endTime      DateTime @map("end_time") @db.Time
+  isBooked     Boolean  @default(false) @map("is_booked")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  technician TechnicianProfile @relation(fields: [technicianId], references: [id], onDelete: Cascade)
+  booking    Booking?
+
+  @@index([technicianId, slotDate])
+  @@map("availability_slots")
+}

@@ -1,0 +1,13 @@
+// =====================================================
+// 3. SERVICE_CATEGORIES
+// =====================================================
+
+model ServiceCategory {
+  id          Int    @id @default(autoincrement())
+  name        String @unique @db.VarChar(100)
+  description String?
+
+  services Service[]
+
+  @@map("service_categories")
+}

@@ -1,0 +1,19 @@
+// =====================================================
+// 7. PAYMENTS (1:1 with Booking)
+// =====================================================
+
+model Payment {
+  id             Int           @id @default(autoincrement())
+  bookingId      Int           @unique @map("booking_id")
+  amount         Decimal       @db.Decimal(10, 2)
+  paymentMethod  PaymentMethod @map("payment_method")
+  transactionId  String?       @map("transaction_id") @db.VarChar(150)
+  status         PaymentStatus @default(pending)
+  paidAt         DateTime?     @map("paid_at")
+  createdAt      DateTime      @default(now()) @map("created_at")
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+  @@map("payments")
+}

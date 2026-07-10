@@ -1,0 +1,22 @@
+// =====================================================
+// 4. SERVICES (offered by a technician, under a category)
+// =====================================================
+
+model Service {
+  id            Int      @id @default(autoincrement())
+  technicianId  Int      @map("technician_id")
+  categoryId    Int      @map("category_id")
+  title         String   @db.VarChar(150)
+  description   String?
+  price         Decimal  @db.Decimal(10, 2)
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  technician TechnicianProfile @relation(fields: [technicianId], references: [id], onDelete: Cascade)
+  category   ServiceCategory   @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  bookings   Booking[]
+
+  @@index([categoryId])
+  @@index([technicianId])
+  @@map("services")
+}

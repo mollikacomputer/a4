@@ -1,0 +1,27 @@
+
+// =====================================================
+// 1. USERS (base table for customer, technician, admin)
+// =====================================================
+
+model User {
+  id            Int         @id @default(autoincrement())
+  name          String      @db.VarChar(150)
+  email         String      @unique @db.VarChar(150)
+  password      String      @db.VarChar(255)
+  phone         String?     @db.VarChar(20)
+  role          UserRole
+  status        UserStatus  @default(active)
+  profileImage  String?     @map("profile_image") @db.VarChar(255)
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+
+  technicianProfile   TechnicianProfile?
+
+  bookingsAsCustomer   Booking[] @relation("CustomerBookings")
+  bookingsAsTechnician Booking[] @relation("TechnicianBookings")
+
+  reviewsWritten   Review[] @relation("CustomerReviews")
+  reviewsReceived  Review[] @relation("TechnicianReviews")
+
+  @@map("users")
+}

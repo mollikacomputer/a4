@@ -1,0 +1,21 @@
+
+// =====================================================
+// 8. REVIEWS (1:1 with Booking)
+// =====================================================
+
+model Review {
+  id            Int      @id @default(autoincrement())
+  bookingId     Int      @unique @map("booking_id")
+  customerId    Int      @map("customer_id")
+  technicianId  Int      @map("technician_id")
+  rating        Int      @db.SmallInt
+  comment       String?
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  booking    Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  customer   User    @relation("CustomerReviews", fields: [customerId], references: [id], onDelete: Cascade)
+  technician User    @relation("TechnicianReviews", fields: [technicianId], references: [id], onDelete: Cascade)
+
+  @@index([technicianId])
+  @@map("reviews")
+}
