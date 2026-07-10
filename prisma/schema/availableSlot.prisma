@@ -4,8 +4,8 @@
 // =====================================================
 
 model AvailabilitySlot {
-  id           Int      @id @default(autoincrement())
-  technicianId Int      @map("technician_id")
+  id           String       @id @default(uuid())
+  technicianId String      @map("technician_id")
   slotDate     DateTime @map("slot_date") @db.Date
   startTime    DateTime @map("start_time") @db.Time
   endTime      DateTime @map("end_time") @db.Time

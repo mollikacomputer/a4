@@ -4,33 +4,32 @@
 // =====================================================
 
 enum UserRole {
-  customer
-  technician
-  admin
+  CUSTOMER
+  TECHNICIAN
+  ADMIN
 }
 
 enum UserStatus {
-  active
-  banned
+  ACTIVE
+  BANNED
 }
 
 enum BookingStatus {
-  pending
-  accepted
-  declined
-  in_progress
-  completed
-  cancelled
+  PENDING
+  ACCEPTED
+  DECLINED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
 }
 
 enum PaymentMethod {
-  stripe
-  sslcommerz
+  STRIPE
 }
 
 enum PaymentStatus {
-  pending
-  paid
-  failed
-  refunded
-}
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+  }

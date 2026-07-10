@@ -3,12 +3,12 @@
 // =====================================================
 
 model Booking {
-  id            Int           @id @default(autoincrement())
-  customerId    Int           @map("customer_id")
-  technicianId  Int           @map("technician_id")
-  serviceId     Int           @map("service_id")
-  slotId        Int?          @unique @map("slot_id")
-  status        BookingStatus @default(pending)
+  id            String       @id @default(uuid())
+  customerId    String           @map("customer_id")
+  technicianId  String           @map("technician_id")
+  serviceId     String           @map("service_id")
+  slotId        String?          @unique @map("slot_id")
+  status        BookingStatus @default(PENDING)
   bookingDate   DateTime      @map("booking_date") @db.Date
   createdAt     DateTime      @default(now()) @map("created_at")
   updatedAt     DateTime      @updatedAt @map("updated_at")

@@ -3,9 +3,9 @@
 // =====================================================
 
 model Service {
-  id            Int      @id @default(autoincrement())
-  technicianId  Int      @map("technician_id")
-  categoryId    Int      @map("category_id")
+  id           String       @id @default(uuid())
+  technicianId  String      @map("technician_id")
+  categoryId    String      @map("category_id")
   title         String   @db.VarChar(150)
   description   String?
   price         Decimal  @db.Decimal(10, 2)

@@ -2,6 +2,9 @@ import cookieParser from "cookie-parser";
 import express, { Application, Request, Response } from "express";
 import config from "./config";
 import cors from "cors"
+import { notFound } from "./middleware/notFound";
+import { globalErrorHandler } from "./middleware/globalErrorHandler";
+import { userRouter } from "./modules/user/user.route";
 
 const app: Application = express();
 
@@ -14,10 +17,17 @@ app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 app.use(cookieParser());
 
-
 app.get("/", (req:Request, res:Response)=>{
-    res.send("Hello Prisma Express server");
+    res.send("Hello Assignment 4");
 });
 
+
+app.use('/api/users', userRouter)
+
+
+
+
+app.use(notFound);
+app.use(globalErrorHandler)
 
 export default app;
