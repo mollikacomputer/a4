@@ -80,7 +80,7 @@ const refreshToken = async(refreshToken:string)=>{
 
 const registerUserIntoDb = async(payload:RegisterUserPayload) =>{
 
-    const {name, email, password, profilePhoto,} = payload;
+    const {name, email, password, profilePhoto, role } = payload;
 
     const isUserExist = await prisma.user.findUnique({
         where : {email}
@@ -96,6 +96,7 @@ const hashedPassword = await bcrypt.hash(password, Number(config.bcrypt_salt_rou
             name,
             email,
             password : hashedPassword,
+            role,
             profile:{
                 create:{
                     profilePhoto

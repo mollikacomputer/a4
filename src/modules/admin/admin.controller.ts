@@ -19,7 +19,7 @@ const getAllUsers = catchAsync( async(req: Request, res: Response, next: NextFun
 const createCategory = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
     const payload = req.body;
-    
+
     const result = await adminService.createCategoryIntoDb(payload)
     
     console.log("controller result =======:", result)
@@ -32,8 +32,19 @@ const createCategory = catchAsync(async (req: Request, res: Response, next: Next
     });
 });
 
+const getAllCategories = catchAsync(async(req: Request, res: Response, next: NextFunction)=>{
+    const result = await adminService.getCategories()
+
+    sendResponse(res, {
+        success:true,
+        statusCode: httpStatus.OK,
+        message: ` Shown all categories successfully`,
+        data: result
+    })
+})
 
 export const adminController ={
     getAllUsers,
     createCategory,
+    getAllCategories
 }

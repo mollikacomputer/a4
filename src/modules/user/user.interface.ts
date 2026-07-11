@@ -6,6 +6,7 @@ export interface RegisterUserPayload {
     password: string;
     phone?:string;
     profilePhoto?: string;
+    role?:UserRole;
 }
 
 export interface User {

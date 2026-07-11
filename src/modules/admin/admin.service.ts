@@ -10,7 +10,7 @@ const getAllUsersFromDB = async() =>{
 const createCategoryIntoDb = async (payload: IServiceCategory) => {
 
     console.log("Payload name-----:",payload)
-    
+
     const {name, description} = payload;
 
 
@@ -28,14 +28,19 @@ const createCategoryIntoDb = async (payload: IServiceCategory) => {
       description,
     },
   });
-  console.log("result-সার্ভিস-----------:", result)
   return result;
 
 };
 
+const getCategoriesFronDb = async() =>{
+    const result = await prisma.serviceCategory.findMany();
+
+    return result;
+}
 
 
 export const adminService = {
     getAllUsersFromDB,
     createCategoryIntoDb,
+    getCategories: getCategoriesFronDb,
 }
