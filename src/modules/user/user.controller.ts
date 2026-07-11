@@ -11,7 +11,7 @@ const registerUser = catchAsync( async( req: Request, res:Response, next: NextFu
     sendResponse(res, {
         success:true,
         statusCode: httpStatus.CREATED,
-        message:"Post created successfully",
+        message:"User Register successfully",
         data:{
             result
             }

@@ -5,7 +5,6 @@ import { jwtUtils } from "../utils/jwt";
 import { prisma } from "../lib/prisma";
 import config from "../config"
 import { JwtPayload } from "jsonwebtoken";
-import { User } from "../../generated/prisma/client";
 declare global{
     namespace Express{
         interface Request{
@@ -39,6 +38,9 @@ export const auth = (...requiredRoles: UserRole[])=>{
             throw new Error(verifiedToken.error);
         }
          const {id, name, email, role } = verifiedToken.data as JwtPayload;
+
+         console.log("role from JWT first log:", role);
+
          if(requiredRoles.length && !requiredRoles.includes(role)){
             throw new Error("Forbidden. You don't have perission to access this resource.")
          }
@@ -48,7 +50,7 @@ export const auth = (...requiredRoles: UserRole[])=>{
                 id,
                 email,
                 name,
-                role
+                role,
             }
          });
 
@@ -56,7 +58,7 @@ export const auth = (...requiredRoles: UserRole[])=>{
             throw new Error("User not found. Please log in again.");
          }
          
-        //  if(user.activeStatus === "BLOCKED"){
+        //  if(user.activeStatus === "BANNED"){
         if(user.status === "BANNED"){
             throw new Error("Your account has been blocked. Please contact with support")
          }
@@ -66,6 +68,7 @@ export const auth = (...requiredRoles: UserRole[])=>{
                 name,
                 role
          }
+         console.log("role from JWT:", role);
          next();
     }
 )

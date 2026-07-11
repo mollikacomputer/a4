@@ -4,8 +4,11 @@ import config from "./config";
 import cors from "cors"
 import { notFound } from "./middleware/notFound";
 import { globalErrorHandler } from "./middleware/globalErrorHandler";
-import { userRouter } from "./modules/user/user.route";
 import { authRoutes } from "./modules/auth/auth.routes";
+import { auth } from "./middleware/auth";
+import { UserRole } from "../generated/prisma/enums";
+import { userRoutes } from "./modules/user/user.route";
+import { adminRoutes } from "./modules/admin/admin.route";
 
 const app: Application = express();
 
@@ -23,8 +26,9 @@ app.get("/", (req:Request, res:Response)=>{
 });
 
 
-app.use('/api/users', userRouter);
+app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
 
 
 

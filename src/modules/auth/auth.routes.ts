@@ -1,9 +1,17 @@
 import { Router } from "express";
 import { authController } from "./auth.controller";
+import { auth } from "../../middleware/auth";
+import { UserRole } from "../../../generated/prisma/enums";
+
 
 const router = Router();
 
 router.post("/login", authController.loginUser);
+router.post('/register', authController.registerUser);
+router.get('/me', auth(UserRole.ADMIN, UserRole.CUSTOMER, UserRole.TECHNICIAN), authController.getMyProfile);
 router.post("/refresh-token", authController.refreshToken);
+
+
+// router.get('/me', auth(UserRole.ADMIN, UserRole.CUSTOMER, UserRole.TECHNICIAN), authController )
 
 export const authRoutes = router;

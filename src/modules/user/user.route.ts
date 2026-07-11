@@ -7,7 +7,7 @@ import { auth } from "../../middleware/auth";
 const router = Router();
 
 router.post('/register', userController.registerUser);
-router.get('/allusers', auth(UserRole.ADMIN) ,userController.getAllUser);
+router.get('/allusers', auth(UserRole.ADMIN),userController.getAllUser);
 
 
-export const userRouter = router;
+export const userRoutes = router;

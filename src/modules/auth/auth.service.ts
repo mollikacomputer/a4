@@ -4,6 +4,7 @@ import { jwtUtils } from "../../utils/jwt";
 import { ILogginUser } from "./auth.interface";
 import bcrypt from "bcryptjs";
 import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
+import { RegisterUserPayload } from "../user/user.interface";
 
 
 const loginUser= async(payload: ILogginUser)=>{
@@ -77,7 +78,66 @@ const refreshToken = async(refreshToken:string)=>{
     return {accessToken};
 }
 
+const registerUserIntoDb = async(payload:RegisterUserPayload) =>{
+
+    const {name, email, password, profilePhoto,} = payload;
+
+    const isUserExist = await prisma.user.findUnique({
+        where : {email}
+});
+if(isUserExist){
+    throw new Error("User with this email already exists") 
+}
+
+const hashedPassword = await bcrypt.hash(password, Number(config.bcrypt_salt_rounds));
+
+    const createdUser = await prisma.user.create({
+        data:{
+            name,
+            email,
+            password : hashedPassword,
+            profile:{
+                create:{
+                    profilePhoto
+                }
+            }
+            
+        }
+    });
+
+const user = await prisma.user.findUnique({
+    where:{
+        id: createdUser.id,
+        email: createdUser.email || email
+    },
+    omit:{
+        password:true
+    },
+    include:{
+        profile:true
+    }
+})
+return user;
+}
+
+
+const getMyProfileIntoDB = async (userId: string) =>{
+    const user = await prisma.user.findUniqueOrThrow({
+        where: {id:userId},
+        omit:{
+            password:true
+        },
+        include:{
+            profile:true
+        }
+    });
+    return user;
+};
+
+
 export const authService = {
     loginUser,
-    refreshToken
+    refreshToken,
+    registerUserIntoDb,
+    getMyProfileIntoDB,
 }

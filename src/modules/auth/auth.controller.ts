@@ -57,7 +57,39 @@ const refreshToken = catchAsync( async(req:Request, res:Response, next:NextFunct
     })
 })
 
+const registerUser = catchAsync( async( req: Request, res:Response, next: NextFunction )=>{
+    const payload= req.body;
+
+    const result = await authService.registerUserIntoDb(payload);
+
+    sendResponse(res, {
+        success:true,
+        statusCode: httpStatus.CREATED,
+        message:"User Register successfully",
+        data:{
+            result
+            }
+    });
+})
+
+const getMyProfile = catchAsync( async( req: Request, res: Response, next: NextFunction) =>{
+   
+
+    const profile = await authService.getMyProfileIntoDB(req.user?.id as string)
+
+
+    sendResponse(res,{
+        success:true,
+        statusCode:httpStatus.OK,
+        message: `${req.user?.name}'s profile is shown successfully`,
+        data:{profile}
+    })
+});
+
+
 export const authController = {
     loginUser,
-    refreshToken
+    refreshToken,
+    registerUser,
+    getMyProfile,
 }
