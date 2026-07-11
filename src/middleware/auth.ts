@@ -5,6 +5,7 @@ import { jwtUtils } from "../utils/jwt";
 import { prisma } from "../lib/prisma";
 import config from "../config"
 import { JwtPayload } from "jsonwebtoken";
+import { User } from "../../generated/prisma/client";
 declare global{
     namespace Express{
         interface Request{
@@ -19,7 +20,9 @@ declare global{
 }
 
 // auth(Role.CUSTOMER, Role.ADMIN, Role.AUTHOR)
-export const auth = (...requiredRoles:UserRole[]) =>{
+
+export const auth = (...requiredRoles: UserRole[])=>{
+
     return catchAsync( async(req: Request, res: Response, next: NextFunction)=>{
         const token = req.cookies.accessToken
         ? req.cookies.accessToken
