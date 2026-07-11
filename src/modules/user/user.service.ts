@@ -9,12 +9,13 @@ const registerUserIntoDb = async(payload:RegisterUserPayload) =>{
 
     const isUserExist = await prisma.user.findUnique({
         where : {email}
-});
-if(isUserExist){
-    throw new Error("User with this email already exists") 
-}
+    });
 
-const hashedPassword = await bcrypt.hash(password, Number(config.bcrypt_salt_rounds));
+    if(isUserExist){
+    throw new Error("User with this email already exists") 
+    }
+
+    const hashedPassword = await bcrypt.hash(password, Number(config.bcrypt_salt_rounds));
 
     const createdUser = await prisma.user.create({
         data:{
@@ -30,7 +31,7 @@ const hashedPassword = await bcrypt.hash(password, Number(config.bcrypt_salt_rou
         }
     });
 
-const user = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
     where:{
         id: createdUser.id,
         email: createdUser.email || email
@@ -47,7 +48,6 @@ return user;
 
 const getAllUsersFromDb = async() =>{
     const result = await prisma.user.findMany();
-
     return result;
 }
 

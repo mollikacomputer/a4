@@ -6,5 +6,14 @@ import { adminController } from "./admin.controller";
 const router = Router();
 
 router.get('/users', auth(UserRole.ADMIN), adminController.getAllUsers);
+router.post('/categories', adminController.createCategory);
+
+
+
+
+
+
+
+// router.get('/users/:id')
 
 export const adminRoutes = router;
