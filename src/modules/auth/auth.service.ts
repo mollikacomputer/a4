@@ -5,6 +5,7 @@ import { ILogginUser } from "./auth.interface";
 import bcrypt from "bcryptjs";
 import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
 import { RegisterUserPayload } from "../user/user.interface";
+import { UserStatus } from "../../../generated/prisma/enums";
 
 
 const loginUser= async(payload: ILogginUser)=>{

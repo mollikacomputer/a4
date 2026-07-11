@@ -1,3 +1,4 @@
+import { UserStatus } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma"
 import { IServiceCategory } from "./admin.interface";
 
@@ -39,8 +40,30 @@ const getCategoriesFronDb = async() =>{
 }
 
 
+const updateUserStatus = async (
+  userId: string,
+  authorId: string,
+  isAdmin: boolean,
+  status: UserStatus,
+) => {
+  if (!isAdmin && userId !== authorId) {
+    throw new Error("You are not the owner of this account");
+  }
+
+  const result = await prisma.user.update({
+    where: { id: userId },
+    data: { status },
+    omit: {
+    password: true,
+  },
+  });
+
+  return result;
+};
+
 export const adminService = {
     getAllUsersFromDB,
     createCategoryIntoDb,
-    getCategories: getCategoriesFronDb,
+    getCategoriesFronDb,
+    updateUserStatus,
 }
