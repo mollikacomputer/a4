@@ -2,21 +2,36 @@ import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../../utils/catchAsync";
 import { userService } from "./user.service";
 import httpStatus from 'http-status';
+import { sendResponse } from "../../utils/sendResponse";
+
 const registerUser = catchAsync( async( req: Request, res:Response, next: NextFunction )=>{
     const payload= req.body;
-    const user = await userService.registerUserIntoDb(payload)
+    const result = await userService.registerUserIntoDb(payload)
 
-    res.status(httpStatus.CREATED).json({
+    sendResponse(res, {
         success:true,
         statusCode: httpStatus.CREATED,
-        message:"User register successfully",
+        message:"Post created successfully",
         data:{
-            user
-        }
+            result
+            }
     });
 })
 
+const getAllUser = catchAsync( async(req:Request, res: Response, next:NextFunction)=>{
+    const result = await userService.getAllUsersFromDb();
+
+    sendResponse(res, {
+        success:true,
+        statusCode:httpStatus.OK,
+        message:"All user showen successfully",
+        data:{
+            result
+        }
+    })
+})
 
 export const userController = {
     registerUser,
+    getAllUser
 }

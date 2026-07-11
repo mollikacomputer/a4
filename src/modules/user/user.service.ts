@@ -45,6 +45,13 @@ const user = await prisma.user.findUnique({
 return user;
 }
 
+const getAllUsersFromDb = async() =>{
+    const result = await prisma.user.findMany();
+
+    return result;
+}
+
 export const userService = {
     registerUserIntoDb,
+    getAllUsersFromDb,
 }
