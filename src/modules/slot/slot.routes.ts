@@ -5,6 +5,6 @@ import { UserRole } from "../../../generated/prisma/enums";
 
 const router = Router();
 
-router.post('/',auth(UserRole.ADMIN, UserRole.TECHNICIAN), slotController.createSlot)
-
+router.post('/', auth(UserRole.ADMIN, UserRole.TECHNICIAN), slotController.createSlot)
+router.get('/', slotController.getAvailableSlots)
 export const slotRouter = router;

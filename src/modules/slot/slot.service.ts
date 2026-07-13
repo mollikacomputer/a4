@@ -1,5 +1,5 @@
 import httpStatus from "http-status";
-import { CreateSlotInput } from "./slot.interface";
+import { CreateSlotInput, GetAvailableSlotsQuery } from "./slot.interface";
 import { prisma } from "../../lib/prisma";
 
 // ---------- Helpers ----------
@@ -71,6 +71,26 @@ const createSlot = async (userId: string, payload: CreateSlotInput) => {
   return result;
 };
 
+
+const getAvailableSlots = async (query: GetAvailableSlotsQuery) => {
+  const { technicianId, slotDate } = query;
+
+  const result = await prisma.availabilitySlot.findMany({
+    where: {
+      isBooked: false,
+      ...(technicianId && { technicianId }),
+      ...(slotDate && { slotDate: toDateOnly(slotDate) }),
+    },
+    include: {
+      technician: true,
+    },
+    orderBy: [{ slotDate: "asc" }, { startTime: "asc" }],
+  });
+
+  return result;
+};
+
 export const slotService = {
   createSlot,
+  getAvailableSlots,
 };
