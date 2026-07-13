@@ -11,6 +11,7 @@ import { userRoutes } from "./modules/user/user.route";
 import { adminRoutes } from "./modules/admin/admin.route";
 import { technicianRouter } from "./modules/technician/technician.route";
 import { serviceRoute } from "./modules/service/service.route";
+import { slotRouter } from "./modules/slot/slot.routes";
 
 const app: Application = express();
 
@@ -33,6 +34,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/technicians', technicianRouter);
 app.use('/api/service', serviceRoute);
+app.use('/api/slot', slotRouter);
 
 
 app.use(notFound);
