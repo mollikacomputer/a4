@@ -7,7 +7,7 @@ const router = Router();
 // router.post("/refresh-token", authController.refreshToken);
 
 
-router.put('/profile', auth(UserRole.ADMIN, UserRole.CUSTOMER, UserRole.TECHNICIAN), technicianController.updateTecProfile);
+router.put('/profile', auth(UserRole.ADMIN, UserRole.TECHNICIAN), technicianController.updateTecProfile);
 router.get('/',auth(UserRole.ADMIN, UserRole.CUSTOMER, UserRole.TECHNICIAN), technicianController.getProfile)
 
 

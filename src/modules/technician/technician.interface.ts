@@ -6,8 +6,8 @@ export interface IUpdateProfileInput {
   address?: string;
   latitude?: number;
   longitude?: number;
-  services?:           Service[]
-  availabilitySlots?:  AvailabilitySlot[]
+  // services?: Service[];
+  // availabilitySlots?: AvailabilitySlot[];
 }
 
 export interface TechnicianProfileResponse {

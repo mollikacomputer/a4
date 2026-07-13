@@ -10,6 +10,7 @@ import { UserRole } from "../generated/prisma/enums";
 import { userRoutes } from "./modules/user/user.route";
 import { adminRoutes } from "./modules/admin/admin.route";
 import { technicianRouter } from "./modules/technician/technician.route";
+import { serviceRoute } from "./modules/service/service.route";
 
 const app: Application = express();
 
@@ -31,7 +32,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/technicians', technicianRouter);
-
+app.use('/api/service', serviceRoute);
 
 
 app.use(notFound);

@@ -3,9 +3,9 @@ import { prisma } from "../../lib/prisma";
 import { jwtUtils } from "../../utils/jwt";
 import { ILogginUser } from "./auth.interface";
 import bcrypt from "bcryptjs";
-import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
+import { JwtPayload, SignOptions } from "jsonwebtoken";
 import { RegisterUserPayload } from "../user/user.interface";
-import { UserStatus } from "../../../generated/prisma/enums";
+
 
 
 const loginUser= async(payload: ILogginUser)=>{
