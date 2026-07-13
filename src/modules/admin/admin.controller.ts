@@ -3,6 +3,7 @@ import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
 import  httpStatus  from "http-status";
 import { adminService } from "./admin.service";
+import { userService } from "../user/user.service";
 
 const getAllUsers = catchAsync( async(req: Request, res: Response, next: NextFunction)=>{
 
@@ -67,9 +68,22 @@ const updateUserStatus = catchAsync(async (req: Request, res: Response, next: Ne
   });
 });
 
+const deleteUser = catchAsync(async (req: Request, res: Response) => {
+  
+  const { email } = req.body;  // userEmail এর বদলে email
+const result = await adminService.deleteUserFromDB(email as string);
+ 
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User deleted successfully!',
+    data: result,
+  });
+});
 export const adminController ={
     getAllUsers,
     createCategory,
     getAllCategories,
-    updateUserStatus
+    updateUserStatus,
+    deleteUser,
 }

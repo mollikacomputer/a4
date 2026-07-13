@@ -10,11 +10,7 @@ const getAllUsersFromDB = async() =>{
 
 const createCategoryIntoDb = async (payload: IServiceCategory) => {
 
-    console.log("Payload name-----:",payload)
-
     const {name, description} = payload;
-
-
       const isCategoryExist = await prisma.serviceCategory.findUnique({
         where : {name}
     });
@@ -61,9 +57,33 @@ const updateUserStatus = async (
   return result;
 };
 
+
+// ---- Hard Delete (Single) ----
+const deleteUserFromDB = async (email: string) => {
+  const result = await prisma.$transaction(async (tx) => {
+    const user = await tx.user.findUniqueOrThrow({
+      where: { email }, // ✅ শুধু এই email এর user
+    });
+
+    await tx.profile.deleteMany({
+      where: { userId: user.id }, // ✅ শুধু এই user এর profile (সাধারণত 1টাই থাকে, one-to-one relation হলে)
+    });
+
+    const deletedUser = await tx.user.delete({
+      where: { email }, // ✅ শুধু এই user
+    });
+
+    return deletedUser;
+  });
+
+  return result;
+};
+
+
 export const adminService = {
     getAllUsersFromDB,
     createCategoryIntoDb,
     getCategoriesFronDb,
     updateUserStatus,
+    deleteUserFromDB,
 }

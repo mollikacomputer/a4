@@ -15,6 +15,7 @@ model User {
   profilePhoto  String?     @map("profile_image") @db.VarChar(255)
   createdAt     DateTime    @default(now()) @map("created_at")
   updatedAt     DateTime    @updatedAt @map("updated_at")
+  isDeleted     Boolean @default(false)
 
   technicianProfile   TechnicianProfile?
 
