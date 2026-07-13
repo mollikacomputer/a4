@@ -5,10 +5,8 @@ import { slotService } from "./slot.service";
 import httpStatus from "http-status";
 
 const createSlot = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const userId = req.user?.id;  // ✅ এটা ঠিক আছে কিনা চেক করুন
   const payload = req.body;
-  console.log(req.user,"controller user id -------------------")
-  const userId = req.user?.id; // auth() middleware থেকে বসানো
-
 
 
   const result = await slotService.createSlot(userId as string, payload);

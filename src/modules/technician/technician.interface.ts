@@ -1,3 +1,5 @@
+import { UserRole } from "../../../generated/prisma/enums";
+
 export interface IUpdateProfileInput {
   bio?: string;
   experienceYears?: number;

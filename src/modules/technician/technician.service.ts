@@ -46,7 +46,7 @@ const updatedUser = await prisma.user.update({
   data: {
     technicianProfile: {
       upsert: {
-        create: { bio, address, experienceYears, hourlyRate, city, latitude, longitude },
+        create: { bio, address, experienceYears, hourlyRate, city, latitude, longitude},
         update: { bio, address, experienceYears, hourlyRate, city, latitude, longitude },
       },
     },

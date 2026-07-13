@@ -12,6 +12,7 @@ const toDateOnly = (dateStr: string): Date => {
   return new Date(`${dateStr}T00:00:00Z`);
 };
 
+// only for admin create slot
 const createSlot = async (userId: string, payload: CreateSlotInput) => {
   const { slotDate, startTime, endTime } = payload;
 

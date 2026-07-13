@@ -7,4 +7,5 @@ const router = Router();
 
 router.post('/', auth(UserRole.ADMIN, UserRole.TECHNICIAN), slotController.createSlot)
 router.get('/', slotController.getAvailableSlots)
+
 export const slotRouter = router;

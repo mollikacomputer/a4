@@ -42,7 +42,7 @@ export const auth = (...requiredRoles: UserRole[])=>{
          console.log("role from JWT first log:", role);
 
          if(requiredRoles.length && !requiredRoles.includes(role)){
-            throw new Error("Forbidden. You don't have perission to access this resource.")
+            throw new Error("Forbidden. You don't have permission to access this resource.")
          }
 
          const user = await prisma.user.findUnique({
