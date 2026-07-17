@@ -5,3 +5,8 @@ export type CreateReviewPayload = {
   rating: number;
   comment?: string;
 };
+
+export type UpdateReview = {
+  rating: number;
+  comment?: string;
+};

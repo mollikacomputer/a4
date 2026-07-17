@@ -1,5 +1,5 @@
 import { prisma } from "../../lib/prisma"
-import { CreateReviewPayload } from "./review.interface";
+import { CreateReviewPayload, UpdateReview } from "./review.interface";
 
 const createReviewIntoDb = async(payload: CreateReviewPayload)=>{
     const { bookingId, customerId, rating, comment } = payload;
@@ -49,6 +49,31 @@ const createReviewIntoDb = async(payload: CreateReviewPayload)=>{
   return result;
 }
 
+const updateReviewIntoDB = async (reviewId: string, payload: UpdateReview) => {
+  const review = await prisma.review.findUnique({
+    where: { id: reviewId },
+  });
+
+  if (!review) {
+    throw new Error("Review not found");
+  }
+
+  if (payload.rating !== undefined && (payload.rating < 1 || payload.rating > 5)) {
+    throw new Error("Rating must be between 1 and 5");
+  }
+
+  const result = await prisma.review.update({
+    where: { id: reviewId },
+    data: {
+      rating: payload.rating,
+      comment: payload.comment,
+    },
+  });
+
+  return result;
+};
+
 export const reviewService = {
-    createReviewIntoDb
+    createReviewIntoDb,
+    updateReviewIntoDB
 }

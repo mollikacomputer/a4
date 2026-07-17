@@ -30,6 +30,19 @@ const createReview = catchAsync(
   }
 );
 
+const updateReview = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const { reviewId } = req.params;
+  const result = await reviewService.updateReviewIntoDB(reviewId as string, req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Comment updated successfully",
+    data: result,
+  });
+});
+
 export const reviewController = {
   createReview,
+ updateReview
 };

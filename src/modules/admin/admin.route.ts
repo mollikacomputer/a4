@@ -10,7 +10,6 @@ router.post('/categories', adminController.createCategory);
 router.get('/categories', adminController.getAllCategories);
 router.delete('/', auth(UserRole.ADMIN), adminController.deleteUser);
 
-
 router.patch('/users/:userId', auth(UserRole.ADMIN), adminController.updateUserStatus);
 
 export const adminRoutes = router;
