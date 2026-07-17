@@ -12,7 +12,8 @@ import { adminRoutes } from "./modules/admin/admin.route";
 import { technicianRouter } from "./modules/technician/technician.route";
 import { serviceRoute } from "./modules/service/service.route";
 import { slotRouter } from "./modules/slot/slot.routes";
-import { bookingRoutes, BookingRoutes } from "./modules/bookings/booking.route";
+import { bookingRoutes} from "./modules/bookings/booking.route";
+import { reviewRouter } from "./modules/reviews/review.route";
 
 const app: Application = express();
 
@@ -37,6 +38,8 @@ app.use('/api/technicians', technicianRouter);
 app.use('/api/service', serviceRoute);
 app.use('/api/slot', slotRouter);
 app.use('/api/booking', bookingRoutes)
+app.use('/api/reviews', reviewRouter)
+
 
 
 app.use(notFound);
