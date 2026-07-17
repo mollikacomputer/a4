@@ -11,8 +11,15 @@ export type IBookingFilterRequest = {
   bookingDate?: string;
 };
 
+// export type ICreateBookingPayload = {
+//   customerId: string;
+//   technicianId: string;
+//   serviceId: string;
+//   slotId?: string;
+//   bookingDate: Date | string;
+//   status?: BookingStatus;
+// };
 export type ICreateBookingPayload = {
-  customerId: string;
   technicianId: string;
   serviceId: string;
   slotId?: string;
