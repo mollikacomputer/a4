@@ -1,4 +1,3 @@
-
 // =====================================================
 // Enums
 // =====================================================
@@ -32,7 +31,7 @@ enum PaymentStatus {
   PAID
   FAILED
   REFUNDED
-  }
+}
 
 enum ServiceType {
   CLEANING

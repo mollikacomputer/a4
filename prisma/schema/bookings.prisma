@@ -3,15 +3,15 @@
 // =====================================================
 
 model Booking {
-  id            String       @id @default(uuid())
-  customerId    String           @map("customer_id")
-  technicianId  String           @map("technician_id")
-  serviceId     String           @map("service_id")
-  slotId        String?          @unique @map("slot_id")
-  status        BookingStatus @default(PENDING)
-  bookingDate   DateTime      @map("booking_date") @db.Date
-  createdAt     DateTime      @default(now()) @map("created_at")
-  updatedAt     DateTime      @updatedAt @map("updated_at")
+  id           String        @id @default(uuid())
+  customerId   String        @map("customer_id")
+  technicianId String        @map("technician_id")
+  serviceId    String        @map("service_id")
+  slotId       String?       @unique @map("slot_id")
+  status       BookingStatus @default(PENDING)
+  bookingDate  DateTime      @map("booking_date") @db.Date
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
 
   customer   User              @relation("CustomerBookings", fields: [customerId], references: [id], onDelete: Cascade)
   technician User              @relation("TechnicianBookings", fields: [technicianId], references: [id], onDelete: Cascade)

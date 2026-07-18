@@ -1,16 +1,15 @@
-
 // =====================================================
 // 8. REVIEWS (1:1 with Booking)
 // =====================================================
 
 model Review {
-  id           String       @id @default(uuid())
-  bookingId     String      @unique @map("booking_id")
-  customerId    String      @map("customer_id")
-  technicianId  String      @map("technician_id")
-  rating        Int      @db.SmallInt
-  comment       String?
-  createdAt     DateTime @default(now()) @map("created_at")
+  id           String   @id @default(uuid())
+  bookingId    String   @unique @map("booking_id")
+  customerId   String   @map("customer_id")
+  technicianId String   @map("technician_id")
+  rating       Int      @db.SmallInt
+  comment      String?
+  createdAt    DateTime @default(now()) @map("created_at")
 
   booking    Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
   customer   User    @relation("CustomerReviews", fields: [customerId], references: [id], onDelete: Cascade)

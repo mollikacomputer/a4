@@ -1,25 +1,24 @@
-
 // =====================================================
 // 2. TECHNICIAN_PROFILES (1:1 with User where role = technician)
 // =====================================================
 
 model TechnicianProfile {
-  id                String   @id @default(uuid())
-  userId            String   @unique @map("user_id")
-  bio               String?
-  experienceYears   Int      @default(2) @map("experience_years")
-  hourlyRate        Decimal? @map("hourly_rate") @db.Decimal(10, 2)
-  isVerified        Boolean  @default(false) @map("is_verified")
-  city              String?  @db.VarChar(100)
-  address           String?  @db.VarChar(255)
-  latitude          Decimal? @db.Decimal(9, 6)
-  longitude         Decimal? @db.Decimal(9, 6)
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @updatedAt @map("updated_at")
+  id              String   @id @default(uuid())
+  userId          String   @unique @map("user_id")
+  bio             String?
+  experienceYears Int      @default(2) @map("experience_years")
+  hourlyRate      Decimal? @map("hourly_rate") @db.Decimal(10, 2)
+  isVerified      Boolean  @default(false) @map("is_verified")
+  city            String?  @db.VarChar(100)
+  address         String?  @db.VarChar(255)
+  latitude        Decimal? @db.Decimal(9, 6)
+  longitude       Decimal? @db.Decimal(9, 6)
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
 
-  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-  services           Service[]
-  availabilitySlots  AvailabilitySlot[]
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  services          Service[]
+  availabilitySlots AvailabilitySlot[]
 
   @@map("technician_profiles")
 }

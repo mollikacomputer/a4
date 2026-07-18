@@ -3,13 +3,13 @@
 // =====================================================
 
 model ServiceCategory {
-  id           String       @id @default(uuid())
-  name        String @unique @db.VarChar(100)
+  id          String  @id @default(uuid())
+  name        String  @unique @db.VarChar(100)
   description String?
 
-  services Service[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
+  services  Service[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
   @@map("service_categories")
 }

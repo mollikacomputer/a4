@@ -4,7 +4,7 @@ import { prisma } from "../../lib/prisma";
 import { stripe } from "../../lib/stripe";
 import { subscribe } from "node:diagnostics_channel";
 
-const createCheckoutSession = async (userId: string) => {
+const createCheckoutSession = async (userId: string, bookingId:string) => {
     const user = await prisma.user.findUniqueOrThrow({
         where: { id: userId }
     });
@@ -15,7 +15,7 @@ const createCheckoutSession = async (userId: string) => {
         const customer = await stripe.customers.create({
             email: user.email,
             name: user.name,
-            metadata: { userId: user.id }
+            metadata: {bookingId, userId: user.id }
         });
         stripeCustomerId = customer.id;
 
@@ -43,7 +43,7 @@ const createCheckoutSession = async (userId: string) => {
     return { paymentUrl: session.url };
 };
 
-const handleWebhook = async (payload: Buffer, signature: string) =>{
+const handleWebhook = async (payload: Buffer, signature: string, bookingId: string) =>{
 
     const endpointSecret = config.stripe_webhook_secret
 
@@ -60,7 +60,7 @@ const handleWebhook = async (payload: Buffer, signature: string) =>{
     console.log(event.data.object);
     const session: Stripe.Checkout.Session = event.data.object;
     const userId = session.metadata?.userId
-    const stripeCustomerId = session.customer
+    const stripeCustomerId = session.customer as string
     const stripeSubscriptionId = session.subscription as string;
 
     if(!userId || !stripeSubscriptionId || !stripeCustomerId){
@@ -77,8 +77,29 @@ const handleWebhook = async (payload: Buffer, signature: string) =>{
     const currentPeriodEnd = new Date(currentPeriodEndtInMiliSecond * 1000);
 
     console.log(currentPeriodEnd, "end====================")
-
-
+    const amount = session.amount_total ? session.amount_total / 100 : 0;
+    await prisma.payment.upsert({
+        where:{
+            userId
+        },
+        create:{
+        userId,
+        bookingId,
+        amount,
+        paymentMethod: "STRIPE",
+        stripeCustomerId,
+        stripeSubscriptionId,
+        currentPeriodEnd,
+        },
+        update:{
+            stripeCustomerId,
+        stripeSubscriptionId,
+        currentPeriodEnd,
+        status: "PAID",
+        paidAt: new Date(),
+        }
+    })
+    
     console.log(event.data.object);
       break;
     case 'customer.subscription.updated':
