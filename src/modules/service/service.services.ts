@@ -1,3 +1,4 @@
+
 import { prisma } from "../../lib/prisma";
 import {  IServiceInterface} from "./service.interface";
 
@@ -40,6 +41,14 @@ const createServiceFromDb = async (payload: IServiceInterface) => {
   return result;
 };
 
+const getAllServicesFromDb = async()=>{
+  const result = await prisma.service.findMany()
+
+  return result;
+
+}
+
 export const serviceServices = {
   createServiceFromDb,
+  getAllServicesFromDb,
 };

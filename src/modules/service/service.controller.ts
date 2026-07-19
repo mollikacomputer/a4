@@ -1,3 +1,4 @@
+
 import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../../utils/catchAsync";
 import { serviceServices } from "./service.services";
@@ -21,6 +22,20 @@ const createService = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getAllServices = catchAsync(async(req: Request, res: Response, next: NextFunction)=>{
+  
+  const result = await serviceServices.getAllServicesFromDb();
+
+  sendResponse(res,{
+    success:true,
+    statusCode:httpStatus.OK,
+    message:"Showen all service successfully",
+    data: result,
+  })
+})
+
+
 export const serviceController ={
     createService,
+    getAllServices,
 }

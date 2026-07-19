@@ -1,6 +1,7 @@
 // =====================================================
 // 4. SERVICES (offered by a technician, under a category)
 // =====================================================
+
 model Service {
   id           String   @id @default(uuid())
   technicianId String?  @map("technician_id")
