@@ -40,7 +40,6 @@ const refreshToken = catchAsync( async(req:Request, res:Response, next:NextFunct
 
     const {accessToken} = await authService.refreshToken(refreshToken);
 
-    console.log("Create new access Token",accessToken);
 
     res.cookie("accessToken", accessToken,{
         httpOnly:true,

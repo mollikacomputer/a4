@@ -3,20 +3,11 @@ import { IUpdateProfileInput } from "./technician.interface";
 
 const getTechnicians = async () => {
   const result = await prisma.user.findMany({
-    // where: { 
-    //   role: "TECHNICIAN",
-    //   name: "Painting",
-    // },  
-    where:{
-      AND:[
-        {
-          role: "TECHNICIAN",
-        },
-        {
-         name: "Painting", 
-        }
-      ]
-    },
+    where: { 
+      role: "TECHNICIAN",
+      name: "Painting",
+    },  
+   
     select: {
       name: true,
       email: true,

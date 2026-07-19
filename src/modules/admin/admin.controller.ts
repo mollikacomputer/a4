@@ -22,8 +22,6 @@ const createCategory = catchAsync(async (req: Request, res: Response, next: Next
     const payload = req.body;
 
     const result = await adminService.createCategoryIntoDb(payload)
-    
-    console.log("controller result =======:", result)
 
     sendResponse(res, {
         success: true,
@@ -80,6 +78,7 @@ const result = await adminService.deleteUserFromDB(email as string);
     data: result,
   });
 });
+
 export const adminController ={
     getAllUsers,
     createCategory,

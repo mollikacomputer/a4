@@ -7,7 +7,6 @@ import { Prisma } from "../../generated/prisma/client";
 
 
 export const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
-    console.log("Error : ", err);
 
     let statusCode;
     let errorMessage = err.message || "Internal Server Error";

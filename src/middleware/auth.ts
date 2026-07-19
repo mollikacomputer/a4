@@ -39,7 +39,6 @@ export const auth = (...requiredRoles: UserRole[])=>{
         }
          const {id, name, email, role } = verifiedToken.data as JwtPayload;
 
-         console.log("role from JWT first log:", role);
 
          if(requiredRoles.length && !requiredRoles.includes(role)){
             throw new Error("Forbidden. You don't have permission to access this resource.")
@@ -68,7 +67,6 @@ export const auth = (...requiredRoles: UserRole[])=>{
                 name,
                 role
          }
-         console.log("role from JWT:", role);
          next();
     }
 )
