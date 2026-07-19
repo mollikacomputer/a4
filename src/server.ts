@@ -6,9 +6,10 @@ async function main(){
     try {
         await prisma.$connect();
         app.listen(PORT, ()=>{
+            console.log(`prisma express server is running on port ${PORT}`)
         })
     } catch (error) {
-
+        console.error("Error starting the server :", error);
         await prisma.$disconnect();
         process.exit(1);
     }
