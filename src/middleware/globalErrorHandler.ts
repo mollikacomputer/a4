@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
-// import { Prisma } from "../../generated/prisma/client";
 import { Prisma } from "../../generated/prisma/client";
-
 
 
 
@@ -39,10 +37,6 @@ export const globalErrorHandler = (err: any, req: Request, res: Response, next: 
             statusCode = httpStatus.INTERNAL_SERVER_ERROR;
             errorMessage = "Error occurred during query execution custom error"
     }
-
-
-
-
 
     res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
         success: false,
